@@ -129,19 +129,22 @@ add_action('wp_ajax_download_pagebuilder_archive', function () {
                 wp_send_json_error(['msg' => 'Hoi oi Eden Tuan, toi khong the viet file '.$query->post->post_name]);
             }
             
-            $postSlugOption = 'wiloke_themeoptions_'.$query->post->post_name;
-            $themeoptions   = get_option($postSlugOption);
-            $fileDir        = $dirbase.'/themeoptions/'.$query->post->post_name.'.txt';
-            if (!$wp_filesystem->put_contents($fileDir, json_encode($themeoptions), FS_CHMOD_FILE)) {
-                wp_send_json_error([
-                    'msg' => 'Hoi oi Eden Tuan, toi khong the viet theme options '
-                             .$query->post->post_name
-                ]);
-            }
+//            $postSlugOption = 'wiloke_themeoptions_'.$query->post->post_name;
+//            $themeoptions   = get_option($postSlugOption);
+//            $fileDir        = $dirbase.'/themeoptions/'.$query->post->post_name.'.txt';
+//            if (!$wp_filesystem->put_contents($fileDir, json_encode($themeoptions), FS_CHMOD_FILE)) {
+//                wp_send_json_error([
+//                    'msg' => 'Hoi oi Eden Tuan, toi khong the viet theme options '
+//                             .$query->post->post_name
+//                ]);
+//            }
         };
-        
+
         $themeoptions = get_option('wiloke_themeoptions');
-        if (!$wp_filesystem->put_contents($fileDir, json_encode($themeoptions), FS_CHMOD_FILE)) {
+        if (!$wp_filesystem->put_contents(
+            $dirbase . '/themeoptions/themeoptions.txt', json_encode($themeoptions), FS_CHMOD_FILE
+        )
+        ) {
             wp_send_json_error(['msg' => 'Hoi oi Eden Tuan, toi khong the viet theme options']);
         }
     }
